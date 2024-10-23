@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:social/features/auth/presentation/components/my_button.dart';
 import 'package:social/features/auth/presentation/components/my_textfield.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   final void Function()? togglePage;
-  const LoginPage({super.key, required this.togglePage});
+  const RegisterPage({super.key, required this.togglePage});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
+  final nameController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +33,19 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 50),
                 Text(
-                  'Bem vindo, sentimos sua falta!',
+                  'Vamos criar uma conta para você',
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
                     fontSize: 16,
                   ),
                 ),
                 const SizedBox(height: 25),
+                MyTextField(
+                  controller: nameController,
+                  hintText: "Nome",
+                  obscureText: false,
+                ),
+                const SizedBox(height: 10),
                 MyTextField(
                   controller: emailController,
                   hintText: "Email",
@@ -49,14 +57,20 @@ class _LoginPageState extends State<LoginPage> {
                   hintText: "Senha",
                   obscureText: true,
                 ),
+                const SizedBox(height: 10),
+                MyTextField(
+                  controller: confirmPasswordController,
+                  hintText: "Confirme a Senha",
+                  obscureText: true,
+                ),
                 const SizedBox(height: 25),
-                const MyButton(text: "Login"),
+                const MyButton(text: "Criar conta"),
                 const SizedBox(height: 50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Não é membro?",
+                      "Já tem uma conta?",
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                       ),
@@ -64,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                     GestureDetector(
                       onTap: widget.togglePage,
                       child: Text(
-                        " Registre agora!",
+                        " Entrar agora!",
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.inversePrimary,
                           fontWeight: FontWeight.bold,
