@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:social/features/auth/domain/entities/app_user.dart';
 import 'package:social/features/auth/domain/repository/auth_repo.dart';
 
 class FirebaseAuthRepository implements AuthRepository {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   Future<AppUser?> loginWithEmailPassword(String email, String password) async {
@@ -35,6 +37,8 @@ class FirebaseAuthRepository implements AuthRepository {
         email: email,
         name: name,
       );
+
+      await firestore.collection("users").doc(user.uid).set(user.toJson());
 
       return user;
     } catch (e) {
